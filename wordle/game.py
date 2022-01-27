@@ -92,5 +92,5 @@ def main():
     print(mean(guesses))
     print(
         f"missed {failures} out of {len(ALLOWED_TARGETS)}. "
-        f"{failures/len(ALLOWED_TARGETS):%}"
+        f"{(len(ALLOWED_TARGETS)-failures)/len(ALLOWED_TARGETS):%} success rate"
     )
