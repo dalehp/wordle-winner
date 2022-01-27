@@ -1,4 +1,4 @@
-ALLOWED_TARGETS = {
+ALLOWED_TARGETS = [
     "cigar",
     "rebut",
     "sissy",
@@ -2314,8 +2314,8 @@ ALLOWED_TARGETS = {
     "artsy",
     "rural",
     "shave",
-}
-ALLOWED_GUESSES = {
+]
+ALLOWED_GUESSES = [
     "aahed",
     "aalii",
     "aargh",
@@ -12973,4 +12973,4 @@ ALLOWED_GUESSES = {
     "zygon",
     "zymes",
     "zymic",
-}
+]
