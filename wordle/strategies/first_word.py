@@ -18,9 +18,14 @@ def is_word_possible(gs: GameState, word: str) -> bool:
         return False
 
     for c, count in gs.in_word.items():
-        actual_count = word.count(c)
-        if actual_count > count and c in gs.misses:
-            return False
+        guess_count = word.count(c)
+        if c in gs.misses:
+            # We know the exact number in the word
+            if guess_count != count:
+                return False
+        else:
+            if guess_count < count:
+                return False
 
     return True
 

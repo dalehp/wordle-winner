@@ -16,3 +16,12 @@ def test_is_word_possible_double_letter():
         misses={"f", "e", "r", "v"},
     )
     assert is_word_possible(gs, "jewel") == False
+
+
+def test_is_word_possible_known_in_word_no_miss():
+    gs = GameState(
+        exact=[None, None, None, None, None],
+        in_word={"o": 1},
+        misses={"a", "g", "l", "w"},
+    )
+    assert is_word_possible(gs, "thief") == False

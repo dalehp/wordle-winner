@@ -64,7 +64,7 @@ def play_game(
     state = GameState()
     guesses = []
 
-    for guess_no in range(6):
+    for guess_no in range(1, 7):
         guess_word = strategy(state)
         if guess_word == target:
             guesses.append((guess_word, [CharacterState.EXACT] * 5))
