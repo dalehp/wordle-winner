@@ -7,10 +7,12 @@ from pyparsing import Char
 
 from wordle.state import CharacterState, GameState
 from wordle.strategies.first_word import strategy as fw_strat
+from wordle.strategies.second_guess_distinct import strategy as second_strat
+from wordle.strategies.second_guess_no_double import strategy as no_double_strat
 from wordle.words import ALLOWED_TARGETS
 
-# A callable that calculates the next guess from current game state
-Strategy = Callable[[GameState], str]
+# A callable that calculates the next guess from current game state and guess number
+Strategy = Callable[[GameState, int], str]
 
 
 def _get_occurrance_indices(word: str, char: str) -> list[int]:
@@ -65,7 +67,7 @@ def play_game(
     guesses = []
 
     for guess_no in range(1, 7):
-        guess_word = strategy(state)
+        guess_word = strategy(state, guess_no)
         if guess_word == target:
             guesses.append((guess_word, [CharacterState.EXACT] * 5))
             break
@@ -83,7 +85,7 @@ def main():
     guesses = []
     failures = 0
     for tgt in ALLOWED_TARGETS:
-        num_guesses, result = play_game(fw_strat, tgt)
+        num_guesses, result = play_game(second_strat, tgt)
         if num_guesses is None:
             print(tgt, result)
             failures += 1

@@ -30,7 +30,8 @@ def is_word_possible(gs: GameState, word: str) -> bool:
     return True
 
 
-def strategy(gs: GameState) -> str:
+def strategy(gs: GameState, _: int) -> str:
     for word in ALLOWED_TARGETS:
         if is_word_possible(gs, word):
             return word
+    raise RuntimeError("Something went wrong - no possible words")
