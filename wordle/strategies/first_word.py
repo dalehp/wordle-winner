@@ -17,6 +17,10 @@ def is_word_possible(gs: GameState, word: str) -> bool:
     if set(word) & (gs.misses - gs.in_word.keys()):
         return False
 
+    for impossible_chars, word_c in zip(gs.not_in_position, word):
+        if word_c in impossible_chars:
+            return False
+
     for c, count in gs.in_word.items():
         guess_count = word.count(c)
         if c in gs.misses:

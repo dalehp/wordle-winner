@@ -21,6 +21,7 @@ def _get_occurrance_indices(word: str, char: str) -> list[int]:
 
 def _game_state_from_character_state(cs: list[CharacterState], word: str) -> GameState:
     exact: list[Optional[str]] = [None] * 5
+    not_in_position: list[set[str]] = [set(), set(), set(), set(), set()]
     in_word: dict[str, int] = {}
     misses = set()
     for i, (state, c) in enumerate(zip(cs, word)):
@@ -29,11 +30,14 @@ def _game_state_from_character_state(cs: list[CharacterState], word: str) -> Gam
             in_word[c] = in_word.get(c, 0) + 1
         elif state == CharacterState.IN_WORD:
             in_word[c] = in_word.get(c, 0) + 1
+            not_in_position[i].add(c)
         elif state == CharacterState.MISS:
             misses.add(c)
         else:
             raise ValueError(f"Unhandled state {state}")
-    return GameState(exact=exact, in_word=in_word, misses=misses)
+    return GameState(
+        exact=exact, not_in_position=not_in_position, in_word=in_word, misses=misses
+    )
 
 
 def guess(target: str, word: str) -> list[CharacterState]:
